@@ -8,7 +8,11 @@ const [mainImages, mainImageAdded, mainImageRemoved] = useArrayContainer();
 
 <template>
   <main>
-    <ImageGallery :images="mainImages.array" :image-limit="4" />
+    <ImageGallery
+      class="main-gallery"
+      :images="mainImages.array"
+      :image-limit="4"
+    />
   </main>
 </template>
 
@@ -21,5 +25,17 @@ body,
 #app,
 main {
   font-family: Roboto, sans-serif;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  padding: var(--gutter-base);
+}
+
+.main-gallery {
+  align-self: center;
+  max-width: 557px;
+  width: 100%;
 }
 </style>
