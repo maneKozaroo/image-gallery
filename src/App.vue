@@ -1,10 +1,14 @@
 <script setup lang="ts">
+import { useArrayContainer } from "@/utils/arrayContainer";
+
 import ImageGallery from "@/components/imageGallery/ImageGallery.vue";
+
+const [mainImages, mainImageAdded, mainImageRemoved] = useArrayContainer();
 </script>
 
 <template>
   <main>
-    <ImageGallery />
+    <ImageGallery :images="mainImages.array" :image-limit="4" />
   </main>
 </template>
 
