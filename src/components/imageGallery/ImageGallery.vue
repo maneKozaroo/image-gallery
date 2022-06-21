@@ -1,8 +1,10 @@
 <script setup lang="ts">
-import { computed } from "vue";
+import { computed, ref } from "vue";
 
 import GalleryImage from "@/components/ui/assets/GalleryImage.vue";
+import ImageSelectButton from "@/components/imageGallery/ImageSelectButton.vue";
 import SecondaryImages from "@/components/imageGallery/SecondaryImages.vue";
+import { useToggleState } from "@/utils/toggleState";
 
 const props = defineProps<{
   images: string[];
@@ -18,6 +20,23 @@ const mainImage = computed(() => {
 const secondaryImages = computed(() => {
   return props.images.slice(1);
 });
+
+const buttonDisabled = computed(() => {
+  return props.images.length >= props.imageLimit;
+});
+
+const selectedImageUrl = ref<string | null>(null);
+const {
+  state: imageSelectionOverlayStatus,
+  turnTrue: showSelectionOverlay,
+  turnFalse: hideSelectionOverlay,
+} = useToggleState();
+
+const handleImageSelectedEvent = (url: string) => {
+  selectedImageUrl.value = url;
+
+  showSelectionOverlay();
+};
 </script>
 
 <template>
@@ -36,6 +55,11 @@ const secondaryImages = computed(() => {
       :images="secondaryImages"
       @remove-image-click="emit('remove-image-click', $event)"
     />
+
+    <ImageSelectButton
+      :disabled="buttonDisabled"
+      @image-selected="handleImageSelectedEvent"
+    />
   </div>
 </template>
 
@@ -48,7 +72,8 @@ header {
   overflow: hidden;
 }
 
-.main-image {
+.main-image,
+.secondary-images {
   margin-bottom: var(--gutter-base);
 }
 </style>
