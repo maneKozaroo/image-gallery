@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { defineProps, onMounted, onUnmounted, ref } from "vue";
-import "cropperjs/dist/cropper.css";
+import { addClass, removeClass } from "@/utils/bodyClassList";
 import Cropper from "cropperjs";
+import "cropperjs/dist/cropper.css";
 
 import ButtonRound from "@/components/ui/controls/ButtonRound.vue";
-import { addClass, removeClass } from "@/utils/bodyClassList";
 
 const props = defineProps<{
   selectedImageUrl: string;
