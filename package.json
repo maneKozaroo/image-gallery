@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@mdi/js": "6.7.96",
+    "cropperjs": "1.5.12",
     "vue": "3.2.37"
   },
   "devDependencies": {
