@@ -10,6 +10,7 @@ const [mainImages, mainImageAdded, mainImageRemoved] = useArrayContainer();
   <main>
     <ImageGallery
       class="main-gallery"
+      @image-added="mainImageAdded"
       :images="mainImages.array"
       :image-limit="4"
       @remove-image-click="mainImageRemoved"
