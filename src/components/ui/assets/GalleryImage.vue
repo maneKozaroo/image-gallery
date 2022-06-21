@@ -41,5 +41,6 @@ const {
 
 .gallery-image img {
   border-radius: 2px;
+  display: block;
 }
 </style>
