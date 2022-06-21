@@ -3,4 +3,5 @@
     --gutter-large: calc(var(--gutter-base) * 1.5);
     --gutter-small: calc(var(--gutter-base) / 2);
     --max-width: 525px;
+    --overlay-z-index: 1;
 }
