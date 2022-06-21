@@ -17,7 +17,7 @@ const [mainImages, mainImageAdded, mainImageRemoved] = useArrayContainer();
   </main>
 </template>
 
-<style scoped>
+<style>
 @import "./assets/css/reset.css";
 @import "./assets/css/variables.css";
 
