@@ -23,7 +23,7 @@
   opacity: 0.3;
 }
 
-.round-button:deep * {
+.round-button:deep(*) {
   cursor: pointer;
 }
 
