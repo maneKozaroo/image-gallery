@@ -2,6 +2,7 @@
 import { computed } from "vue";
 
 import GalleryImage from "@/components/ui/assets/GalleryImage.vue";
+import SecondaryImages from "@/components/imageGallery/SecondaryImages.vue";
 
 const props = defineProps<{
   images: string[];
@@ -12,6 +13,10 @@ const emit = defineEmits(["remove-image-click"]);
 
 const mainImage = computed(() => {
   return props.images[0];
+});
+
+const secondaryImages = computed(() => {
+  return props.images.slice(1);
 });
 </script>
 
@@ -24,6 +29,12 @@ const mainImage = computed(() => {
       class="main-image"
       @remove-image-click="emit('remove-image-click', $event)"
       :src="mainImage"
+    />
+
+    <SecondaryImages
+      v-if="secondaryImages.length"
+      :images="secondaryImages"
+      @remove-image-click="emit('remove-image-click', $event)"
     />
   </div>
 </template>
