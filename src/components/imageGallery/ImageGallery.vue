@@ -1,17 +1,18 @@
 <script setup lang="ts">
 import { computed, ref } from "vue";
+import { useToggleState } from "@/utils/toggleState";
 
 import GalleryImage from "@/components/ui/assets/GalleryImage.vue";
+import ImageCropperOverlay from "@/components/imageGallery/ImageCropperOverlay.vue";
 import ImageSelectButton from "@/components/imageGallery/ImageSelectButton.vue";
 import SecondaryImages from "@/components/imageGallery/SecondaryImages.vue";
-import { useToggleState } from "@/utils/toggleState";
 
 const props = defineProps<{
   images: string[];
   imageLimit: number;
 }>();
 
-const emit = defineEmits(["remove-image-click"]);
+const emit = defineEmits(["image-added", "remove-image-click"]);
 
 const mainImage = computed(() => {
   return props.images[0];
@@ -27,7 +28,7 @@ const buttonDisabled = computed(() => {
 
 const selectedImageUrl = ref<string | null>(null);
 const {
-  state: imageSelectionOverlayStatus,
+  state: imageCropperOverlayStatus,
   turnTrue: showSelectionOverlay,
   turnFalse: hideSelectionOverlay,
 } = useToggleState();
@@ -36,6 +37,16 @@ const handleImageSelectedEvent = (url: string) => {
   selectedImageUrl.value = url;
 
   showSelectionOverlay();
+};
+
+const handleImageCropCancellation = () => {
+  hideSelectionOverlay();
+};
+
+const handleImageCropConfirmation = (url: string) => {
+  emit("image-added", url);
+
+  hideSelectionOverlay();
 };
 </script>
 
@@ -60,6 +71,15 @@ const handleImageSelectedEvent = (url: string) => {
       :disabled="buttonDisabled"
       @image-selected="handleImageSelectedEvent"
     />
+
+    <Teleport to="body">
+      <ImageCropperOverlay
+        v-if="imageCropperOverlayStatus"
+        @image-crop-canceled="handleImageCropCancellation"
+        @image-crop-confirmed="handleImageCropConfirmation"
+        :selected-image-url="selectedImageUrl"
+      />
+    </Teleport>
   </div>
 </template>
 
