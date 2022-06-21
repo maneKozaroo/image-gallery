@@ -12,6 +12,7 @@ const [mainImages, mainImageAdded, mainImageRemoved] = useArrayContainer();
       class="main-gallery"
       :images="mainImages.array"
       :image-limit="4"
+      @remove-image-click="mainImageRemoved"
     />
   </main>
 </template>
